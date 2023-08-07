@@ -6,7 +6,9 @@ from  random import randint
 from requests import get
 from bs4 import BeautifulSoup
 import asyncio
-
+# from dotenv import load_dotenv
+# load_dotenv()
+# DISCORD_TOKEN = os.environ('DISCORD_TOKEN')
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 
 f_w=open('BuildConfig.txt', 'w') # file to save f_w to
@@ -39,7 +41,7 @@ async def fetch(component, url):
 Price: {price}
 """)
 
-    print(fetched_data)
+    # print(fetched_data)
     # print(fetched_data)
     f_w.write(fetched_data)
 
@@ -61,18 +63,20 @@ async def main():
     for i in range(5):
         totalSum+=L[i]
     f_w.writelines(f"""
-    Total Sum: Rs.{str(totalSum).strip()}
-    """)
+Total Sum: Rs.{str(totalSum).strip()}
+""")
+
     M = await asyncio.gather(
                 fetch('Archer', 'https://price-history.com/product/archer-tech-lab-astra-m200-mechanical-3NMVBcw8'),
                 # fetch('CB-GK 34', 'https://price-history.com/product/renewed-cosmic-byte-cb-gk-34-LUB7wmce'),
         )
     
-    f_w.writelines=(f"""
+
+asyncio.run(main())
+f_w.writelines(f"""
 via CronJobs - Github Actions
 {time.strftime('%H:%M:%S')}
 """)
-asyncio.run(main())
 
 f_w.close()
 
@@ -104,6 +108,7 @@ async def send_message():
 
 client.run(DISCORD_TOKEN)
 print("Success!")
+
 
 
 # async def fetch(component, url):
@@ -187,5 +192,3 @@ print("Success!")
 
 # client.run(DISCORD_TOKEN)
 # print("Success!")
-
-
