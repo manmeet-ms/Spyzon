@@ -1,4 +1,4 @@
-# THIS IS MADE FOR GITHUB ACITONS 
+# MADE FOR GITHUB ACITONS 
 import time
 import os
 import discord
@@ -15,13 +15,13 @@ f_w=open('BuildConfig.txt', 'w') # file to save f_w to
 # My Browser's Header
 HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.50', 'Accept-Language': 'en-US, en;q=0.5'})
 async def fetch(component, url):
-    global f_w, lst
+    global f_w, data
     r = get(url, headers=HEADERS)
     soup = BeautifulSoup(r.text, 'html.parser')
 
-    lst=[]
+    data=[]
     name= (soup.find('h1'))
-    lst.append(name.string.strip())
+    data.append(name.string.strip())
     table = soup.find('table', class_='text-center ph-table-offer')
     if table:
         rows = table.find_all('tr')
@@ -32,12 +32,12 @@ async def fetch(component, url):
                 # if th and td:
                 if td:
                     # key = th.text.strip()
-                    lst.append(td.text.strip())
+                    data.append(td.text.strip())
                     # data[key] = value`
-    name =lst[0]
-    price=lst[1]
+    name =data[0]
+    price=data[1]
     fetched_data= (f"""
-`{name}`
+```{name}```
 Price: {price}
 """)
 
@@ -74,8 +74,7 @@ Total Sum: Rs.{str(totalSum).strip()}
 
 asyncio.run(main())
 f_w.writelines(f"""
-via CronJobs - Github Actions
-{time.strftime('%H:%M:%S')}
+via CronJobs - Github Actions {time.strftime('%H:%M:%S')}
 """)
 
 f_w.close()
