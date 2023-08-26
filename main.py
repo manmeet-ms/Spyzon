@@ -103,6 +103,7 @@ async def main():
         fetchPriceBefore('MOB','https://www.pricebefore.com/asus-rog-strix-b550-f-gaming-wifi-ii-amd-am4-m103100.html'),
         fetchPriceBefore('SSD','https://www.pricebefore.com/samsung-970-evo-plus-1tb-pcie-nvme-m-2-2280-m6200.html'),
         fetchPriceBefore('PSU','https://www.pricebefore.com/cooler-master-mwe-550-bronze-v2-230v-80-plus-bronze-m50037.html'),
+        fetchPriceBefore('CASE','https://www.pricebefore.com/galax-revolution-01-rev-01w-mid-tower-gaming-case-4-m19447.html'),
     )
     print(L)
     
