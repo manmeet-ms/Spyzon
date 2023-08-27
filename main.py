@@ -148,7 +148,9 @@ async def send_message():
     embed_colors=[0xf8fafc, 0x64748b, 0xfed7aa, 0xf97316, 0xfef3c7, 0xfbbf24, 0xecfccb, 0x22c55e, 0x0d9488, 0x22d3ee, 0x0ea5e9, 0x8b5cf6, 0xf9a8d4, 0xf472b6, 0xfda4af]
     channel_id=1136610536256192542 #pc-config
     channel = client.get_channel(channel_id)
-    embedtry=discord.Embed(title=f"Rig @₹{totalSum}", description=f"{msg} @{mention}", color=embed_colors[randint(0, len(embed_colors)-1)])
+    choice = randint(0, len(embed_colors)-1)
+    embedtry=discord.Embed(title=f"Konichiwa!", description=f"{msg} @{mention}", color=embed_colors[choice])
+    embedtry.set_footer(text=f"Embed Hex: {hex(embed_colors[choice])}", icon_url=None)
     await channel.send(embed=embedtry)
 
 client.run(DISCORD_TOKEN)
