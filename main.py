@@ -97,7 +97,7 @@ async def main():
     L = await asyncio.gather(
         fetchPriceBefore('CPU','https://www.pricebefore.com/amd-5000-series-ryzen-5-5600x-desktop-processor-6-cores-m20417.html'),
         fetchPriceBefore('GPU','https://www.pricebefore.com/asus-dual-radeon-rx-6600-8-gb-gddr6-ram-pcie-m178093.html'),
-        #  I HAD TO THIS BECASUE 1 8GB WAS ONLY AVAILABLE THERE
+        #  I HAD TO THIS BECASUE 1x8GB WAS ONLY AVAILABLE THERE
         fetchPriceBefore('RAM','https://www.pricebefore.com/corsair-vengeance-lpx-8gb-1x8gb-ddr4-3200mhz-c16-desktop-ram-m5956.html'),
         fetchPriceBefore('RAM','https://www.pricebefore.com/corsair-vengeance-lpx-8gb-1x8gb-ddr4-3200mhz-c16-desktop-ram-m5956.html'),
         fetchPriceBefore('MOB','https://www.pricebefore.com/asus-rog-strix-b550-f-gaming-wifi-ii-amd-am4-m103100.html'),
