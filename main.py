@@ -149,7 +149,7 @@ async def send_message():
     channel_id=1136610536256192542 #pc-config
     channel = client.get_channel(channel_id)
     choice = randint(0, len(embed_colors)-1)
-    embedtry=discord.Embed(title=f"Konichiwa!", description=f"{msg} @{mention}", color=embed_colors[choice])
+    embedtry=discord.Embed(title=f"₹{totalSum}", description=f"{msg} @{mention}", color=embed_colors[choice])
     embedtry.set_footer(text=f"Embed Hex: {hex(embed_colors[choice])}", icon_url=None)
     await channel.send(embed=embedtry)
 
