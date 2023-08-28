@@ -145,7 +145,7 @@ async def on_ready():
 async def send_message():
     global totalSum
     mention='everyone'
-    embed_colors=[0xf8fafc, 0x64748b, 0xfed7aa, 0xf97316, 0xfef3c7, 0xfbbf24, 0xecfccb, 0x22c55e, 0x0d9488, 0x22d3ee, 0x0ea5e9, 0x8b5cf6, 0xf9a8d4, 0xf472b6, 0xfda4af]
+    embed_colors=[0x64748b, 0xfed7aa, 0xf97316, 0xfef3c7, 0xfbbf24, 0x22c55e, 0x0d9488, 0x22d3ee, 0x0ea5e9, 0x8b5cf6, 0xf9a8d4, 0xf472b6, 0xfda4af]
     channel_id=1136610536256192542 #pc-config
     channel = client.get_channel(channel_id)
     choice = randint(0, len(embed_colors)-1)
