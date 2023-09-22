@@ -56,10 +56,10 @@ Price: **{p_now}** | MRP: {mrp}
     totalmrp+=int(mrp)
     with open(f"yesterdayPrices/{component}.txt" , "r") as cr:
         trackRecord = int(cr.read())
-        if int(trackRecord)<p_now:
-            f_w.write(f"Price rose by {p_now-int(trackRecord)} ")
+        if int(trackRecord)<int(p_now):
+            f_w.write(f"Price rose by {int(p_now)-int(trackRecord)} ")
             with open(f"yesterdayPrices/{component}.txt" , "w") as trackRecordWrite:
-                trackRecordWrite.write(str(p_now)) # writing today's prpice to compare tomorrow
+                trackRecordWrite.write(str(int(p_now))) # writing today's prpice to compare tomorrow
     return int(p_now)
 
 
