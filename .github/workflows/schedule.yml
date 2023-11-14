@@ -14,21 +14,20 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v4
-        with:
-        
+        with:        
           python-version: '3.x' # Install the latest Python version
 
-      # - name: Cache dependencies
-      #   id: cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.cache/pip
-      #     key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pip-
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       
-      # - name: Install dependencies
-      #   run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
        
       - name: Execute Python script
         run: python main.py
