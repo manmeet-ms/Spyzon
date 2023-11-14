@@ -1,4 +1,4 @@
-name: Script Running Cron
+name: Script Execution Cron
 on:
   schedule:
     - cron: '30 2 * * *'
