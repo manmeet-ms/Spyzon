@@ -9,6 +9,7 @@ import asyncio
 # from dotenv import load_dotenv  #inLocalHost
 # load_dotenv() #inLocalHost
 # DISCORD_TOKEN = os.getenv('DISCORD_TOKEN') #inLocalHost
+
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN'] #githubRepo
 
 f_w=open('BuildConfig.txt', 'w') # file to save f_w to
