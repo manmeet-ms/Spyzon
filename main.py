@@ -58,21 +58,21 @@ Price: **{p_now}** | MRP: {mrp}
     p_now=int(p_now)
 
     # yesterdayPrices - Price tracking
-    with open(f"yesterdayPrices/{component}.txt" , "r") as cr:
-        trackRecord = int(cr.read()) 
-        if trackRecord<p_now: # Price rose 
-            f_w.write(f"Change `+{p_now-trackRecord}`\n")
-            print(f"{component} Price Changed by `+{p_now-trackRecord}` ")
+    # with open(f"yesterdayPrices/{component}.txt" , "r") as cr:
+    #     trackRecord = int(cr.read()) 
+    #     if trackRecord<p_now: # Price rose 
+    #         f_w.write(f"Change `+{p_now-trackRecord}`\n")
+    #         print(f"{component} Price Changed by `+{p_now-trackRecord}` ")
 
-        elif trackRecord==p_now: # Price equal
-            print(f"{component} price is same.")
+    #     elif trackRecord==p_now: # Price equal
+    #         print(f"{component} price is same.")
 
-        elif trackRecord>p_now: # Price fell
-            f_w.write(f"Change `{p_now-trackRecord}` \n")
+    #     elif trackRecord>p_now: # Price fell
+    #         f_w.write(f"Change `{p_now-trackRecord}` \n")
 
-            print(f"Price rose by {p_now-trackRecord} ")
-            with open(f"yesterdayPrices/{component}.txt" , "w") as trackRecordWrite:
-                trackRecordWrite.write(str(p_now)) # writing today's prpice to compare tomorrow
+    #         print(f"Price rose by {p_now-trackRecord} ")
+    #         with open(f"yesterdayPrices/{component}.txt" , "w") as trackRecordWrite:
+    #             trackRecordWrite.write(str(p_now)) # writing today's prpice to compare tomorrow
     return int(p_now)
 
 
@@ -106,39 +106,59 @@ async def fetchPriceHistory(component, url):
 {name}
 Price: {price}
 """
+    price = price[1:]
+    price = price.replace(',', '')
+    price=int(price)
+    return price
 # unicode space ```ㅤㅤㅤㅤㅤㅤ```
     f_w.write(fetched_data)
     
     # Calls
 async def main():
     global totalSum
-    L = await asyncio.gather(
+    C = await asyncio.gather(
         fetchPriceBefore('CPU','https://www.pricebefore.com/amd-5000-series-ryzen-5-5600x-desktop-processor-6-cores-m20417.html'),
         fetchPriceBefore('GPU','https://www.pricebefore.com/asus-dual-radeon-rx-6600-8-gb-gddr6-ram-pcie-m178093.html'),
         #  I HAD TO THIS BECASUE 1x8GB WAS ONLY AVAILABLE THERE
         fetchPriceBefore('RAM','https://www.pricebefore.com/corsair-vengeance-lpx-8gb-1x8gb-ddr4-3200mhz-c16-desktop-ram-m5956.html'),
         fetchPriceBefore('RAM','https://www.pricebefore.com/corsair-vengeance-lpx-8gb-1x8gb-ddr4-3200mhz-c16-desktop-ram-m5956.html'),
-        fetchPriceBefore('MOB','https://www.pricebefore.com/asus-rog-strix-b550-f-gaming-wifi-ii-amd-am4-m103100.html'),
+        # fetchPriceBefore('MOB Asus B550F','https://www.pricebefore.com/asus-rog-strix-b550-f-gaming-wifi-ii-amd-am4-m103100.html'),
+        fetchPriceHistory('MOB','https://price-history.in/product/msi-mag-b550-tomahawk-max-wifi-Ps08jmce'),
+
+        # MOBO for intel use case
+        # fetchPriceHistory('MOB','https://price-history.in/product/msi-mag-b560m-mortar-wifi-micro-l6uinaw8'),
+
         fetchPriceBefore('SSD','https://www.pricebefore.com/samsung-970-evo-plus-1tb-pcie-nvme-m-2-2280-m6200.html'),
         fetchPriceBefore('PSU','https://www.pricebefore.com/cooler-master-mwe-550-bronze-v2-230v-80-plus-bronze-m50037.html'),
         fetchPriceBefore('CASE','https://www.pricebefore.com/galax-revolution-01-rev-01w-mid-tower-gaming-case-4-m19447.html'),
+        fetchPriceHistory('Monitor','https://price-history.in/product/msi-modern-md272qpw-27-inch-wqhd-11UsYyyp'),
+        
     )
-    print(L)
+    print(C)
     
 # Appending total build cost, also under main() 
     totalSum = 0
-    for i in range(5):
-        totalSum += L[i]
+    for i in range(len(C)):
+        totalSum += C[i]
     print(totalSum)
     f_w.writelines(f'''
 
 ```Fetched: ₹{totalSum} | MRP: ₹{totalmrp}```
- 
-Mechanical Keyboards''')
 
-    O = await asyncio.gather(
-                fetchPriceHistory('Archer_MeckKey', 'https://price-history.com/product/archer-tech-lab-astra-m200-mechanical-3NMVBcw8'),
+> Memory Modules''')
+
+    R = await asyncio.gather(
+                fetchPriceBefore('Corsair 16GB', 'https://www.pricebefore.com/corsair-vengeance-lpx-16gb-16gb-ddr4-3200mhz-udimm-c16-desktop-m1869.html'),
+                fetchPriceBefore('XPG 16GB', 'https://www.pricebefore.com/xpg-adata-gammix-d30-ddr4-6gb-1x16gb-3200mhz-u-dimm-m21623.html'),
         )
+    f_w.writelines(f'''
+Final sum with 16GB Modules = Standard fetched Sum + Current Module Price - (Hardcoded) previous RAM price: 
+''')
+    for i in range(0,len(R)):
+        sumWith_16Gigs=0
+        sumWith_16Gigs+=(totalSum + 2*R[i] - 2*1809)
+        f_w.writelines(f'''{i}. `{sumWith_16Gigs}` = {totalSum} + {2*R[i]} - {2*1816}
+''')
 asyncio.run(main())
 f_w.close()
 
