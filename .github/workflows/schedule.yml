@@ -1,7 +1,7 @@
 name: Script Execution Cron
 on:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '30 2 * * 0'
   
   workflow_dispatch:    # Allow manual triggering of the workflow
 
